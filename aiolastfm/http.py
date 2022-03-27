@@ -57,9 +57,9 @@ class HTTPClient:
     async def _request(
         self,
         _method: HTTPMethod, /,
-        *
+        *,
         method: APIMethod,
-        **parameters: Parameters
+        **parameters: str
     ) -> ResponseData:
 
         session = await self._get_session()
@@ -80,7 +80,7 @@ class HTTPClient:
 
                 async with session.request(
                         _method, url=self._BASE_URL,
-                        params=parameters,
+                        params=params,
                         headers=self._HEADERS
                 ) as response:
 

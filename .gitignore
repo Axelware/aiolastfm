@@ -3,4 +3,5 @@
 
 .idea/
 dist/
-tests/
+
+test.py
