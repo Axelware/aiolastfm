@@ -9,10 +9,10 @@ import logging
 import aiohttp
 
 # My stuff
-from . import __version__, utilities
 from .exceptions import _EXCEPTION_MAPPING, HTTPException, InvalidResponse
 from .types.common import Parameters, ResponseData
 from .types.http import APIMethod, Headers, HTTPMethod
+from .utilities import MISSING, json_or_text
 
 
 __all__ = (
@@ -25,7 +25,7 @@ __log__: logging.Logger = logging.getLogger("aiolastfm.http")
 class HTTPClient:
 
     _BASE_URL: str = "https://ws.audioscrobbler.com/2.0/"
-    _USER_AGENT: str = f"aiolastfm/{__version__} (https://github.com/Axelware/aiolastfm)"
+    _USER_AGENT: str = f"aiolastfm/0.0.1 (https://github.com/Axelware/aiolastfm)"
     _HEADERS: Headers = {
         "User-Agent": _USER_AGENT,
     }
@@ -71,8 +71,8 @@ class HTTPClient:
         }
         params.update(parameters)
 
-        response: aiohttp.ClientResponse = utilities.MISSING
-        data: ResponseData | str = utilities.MISSING
+        response: aiohttp.ClientResponse = MISSING
+        data: ResponseData | str = MISSING
 
         for tries in range(3):
 
@@ -84,7 +84,7 @@ class HTTPClient:
                         headers=self._HEADERS
                 ) as response:
 
-                    data = await utilities.json_or_text(response)
+                    data = await json_or_text(response)
 
                     if isinstance(data, str):
                         raise InvalidResponse
