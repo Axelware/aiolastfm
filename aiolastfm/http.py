@@ -57,6 +57,7 @@ class HTTPClient:
     async def _request(
         self,
         _method: HTTPMethod, /,
+        *
         method: APIMethod,
         **parameters: Parameters
     ) -> ResponseData:

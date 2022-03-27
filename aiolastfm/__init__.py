@@ -7,7 +7,7 @@ from typing import Final, Literal, NamedTuple
 
 # My stuff
 from .exceptions import *
-from .http import *
+from .http import HTTPClient as HTTPClient
 
 
 class VersionInfo(NamedTuple):
