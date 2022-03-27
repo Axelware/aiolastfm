@@ -42,9 +42,9 @@ class HTTPException(LastFmException):
         self._code: int = data["error"]
         self._message: str = data["message"]
 
-        message: str = f"{self._response.status} {self._response.reason}"
+        message: str = f"{self._response.status} ({self._response.reason})"
         if self._message:
-            message += f": {self._message}"
+            message += f" - {self._message}"
 
         super().__init__(message)
 
@@ -73,6 +73,10 @@ class AuthenticationFailed(HTTPException):
     pass
 
 
+class InvalidParameters(HTTPException):
+    pass
+
+
 class InvalidAPIKey(HTTPException):
     pass
 
@@ -95,6 +99,7 @@ class RateLimitExceeded(HTTPException):
 
 _EXCEPTION_MAPPING: dict[int, type[HTTPException]] = {
     4:  AuthenticationFailed,
+    6:  InvalidParameters,
     10: InvalidAPIKey,
     11: ServiceOffline,
     16: ServiceUnavailable,
