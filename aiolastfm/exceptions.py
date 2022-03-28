@@ -4,7 +4,7 @@ from __future__ import annotations
 # Packages
 import aiohttp
 
-# My stuff
+# Local
 from .types.common import ResponseData
 
 

@@ -1,15 +1,13 @@
 [tool.poetry]
-name        = "aiolastfm"
-version     = "0.0.2"
-description = "An async wrapper for the last.fm API."
-authors     = ["Axel <axelancerr@gmail.com>"]
-license     = "MIT"
-readme      = "README.md"
-
+name            = "aiolastfm"
+version         = "0.0.2"
+description     = "An async wrapper for the last.fm API."
+authors         = ["Axel <axelancerr@gmail.com>"]
+license         = "MIT"
+readme          = "README.md"
 homepage        = "https://github.com/Axelware/aiolastfm"
 repository      = "https://github.com/Axelware/aiolastfm"
 documentation   = "https://aiolastfm.readthedocs.io/en/latest/"
-
 keywords = [
     "lastfm", "api", "wrapper", "async"
 ]
@@ -18,7 +16,7 @@ classifiers = [
     "Topic :: Software Development",
     "Topic :: Software Development :: Libraries",
     "Topic :: Software Development :: Libraries :: Python Modules",
-    "Development Status :: 2 - Pre-Alpha",
+    "Development Status :: 3 - Alpha",
     "Programming Language :: Python :: Implementation :: CPython",
     "Operating System :: OS Independent",
     "Environment :: Other Environment",
@@ -26,7 +24,6 @@ classifiers = [
     "Natural Language :: English",
     "Typing :: Typed"
 ]
-
 packages = [
     { include = "aiolastfm" },
     { include = "aiolastfm/**/*.py" },
@@ -34,30 +31,27 @@ packages = [
 ]
 include = [
     "LICENSE",
-    "README.md"
 ]
 
 
 [tool.poetry.dependencies]
-python  = "^3.10.0"
-aiohttp = "^3.8.0"
+python              = "^3.10.0"
+aiohttp             = "^3.8.0"
+sphinx              = { version = "^4.5.0", optional = true }
+sphinxcontrib-trio  = { version = "*",      optional = true }
+sphinx-copybutton   = { version = "*",      optional = true }
+sphinx-inline-tabs  = { version = "*",      optional = true }
+furo                = { version = "*",      optional = true }
+sphinx-autobuild    = { version = "*",      optional = true }
 
-orjson = { version = "^3.6.0", optional = true }
 
-sphinx              = { version = "^4.5.0",         optional = true }
-sphinxcontrib-trio  = { version = "^1.1.0",         optional = true }
-sphinx-copybutton   = { version = "^0.5.0",         optional = true }
-sphinx-inline-tabs  = { version = "^2022.1.2b11",   optional = true }
-furo                = { version = "^2022.3.0",      optional = true }
-
-sphinx-autobuild    = { version = "*", optional = true }
-isort               = { version = "*", optional = true }
+[tool.poetry.dev-dependencies]
+isort       = "*"
 
 
 [tool.poetry.extras]
-speed   = ["orjson"]
-docs    = ["sphinx", "sphinxcontrib-trio", "sphinx-copybutton", "sphinx-inline-tabs", "furo"]
-dev     = ["isort", "sphinx-autobuild", "docs"]
+docs        = ["sphinx", "sphinxcontrib-trio", "sphinx-copybutton", "sphinx-inline-tabs", "furo"]
+docs-dev    = ["sphinx", "sphinxcontrib-trio", "sphinx-copybutton", "sphinx-inline-tabs", "furo", "sphinx-autobuild"]
 
 
 [tool.poetry.urls]
@@ -70,13 +64,15 @@ line_length                 = 120
 multi_line_output           = 3
 lines_after_imports         = 2
 combine_star                = true
-include_trailing_comma      = true
 star_first                  = true
+include_trailing_comma      = true
+dedup_headings              = true
+src_paths                   = ["aiolastfm"]
 import_heading_future       = "Future"
 import_heading_stdlib       = "Standard Library"
 import_heading_thirdparty   = "Packages"
-import_heading_firstparty   = "My stuff"
-import_heading_localfolder  = "My stuff"
+import_heading_firstparty   = "Local"
+import_heading_localfolder  = "Local"
 
 
 [build-system]
@@ -85,17 +81,16 @@ build-backend   = "poetry.core.masonry.api"
 
 
 [tool.pyright]
-include                 = ["aiolastfm", "docs"]
-verboseOutput           = false
-pythonVersion           = "3.10"
-typeCheckingMode        = "strict"
-useLibraryCodeForTypes  = true
-
-reportMissingTypeStubs = false
-reportPrivateImportUsage = false
-reportPrivateUsage = false
-reportFunctionMemberAccess = false
-reportUnknownMemberType = false
-reportUnknownVariableType = false
-reportUnknownArgumentType = false
-reportImportCycles = false
+include                     = ["aiolastfm", "docs"]
+verboseOutput               = false
+pythonVersion               = "3.10"
+typeCheckingMode            = "strict"
+useLibraryCodeForTypes      = true
+reportMissingTypeStubs      = false
+reportPrivateImportUsage    = false
+reportPrivateUsage          = false
+reportFunctionMemberAccess  = false
+reportUnknownMemberType     = false
+reportUnknownVariableType   = false
+reportUnknownArgumentType   = false
+reportImportCycles          = false

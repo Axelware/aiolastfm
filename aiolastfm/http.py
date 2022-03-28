@@ -8,7 +8,7 @@ import logging
 # Packages
 import aiohttp
 
-# My stuff
+# Local
 from .exceptions import _EXCEPTION_MAPPING, HTTPException, InvalidResponse
 from .types.common import Parameters, ResponseData
 from .types.http import APIMethod, Headers, HTTPMethod

@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 from typing import Final, Literal, NamedTuple
 
-# My stuff
+# Local
 from .exceptions import *
 from .client import Client as Client
 from .http import HTTPClient as HTTPClient
