@@ -26,7 +26,7 @@ __title__: Final[str] = "aiolastfm"
 __author__: Final[str] = "Axelancerr"
 __copyright__: Final[str] = "Copyright 2022-present Axelancerr"
 __license__: Final[str] = "MIT"
-__version__: Final[str] = f"{version_info.major}.{version_info.minor}.{version_info.micro}"
+__version__: Final[str] = "0.0.2"
 __maintainer__: Final[str] = "Aaron Hennessey"
 __source__: Final[str] = "https://github.com/Axelware/aiolastfm"
 
