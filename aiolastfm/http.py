@@ -23,6 +23,18 @@ __log__: logging.Logger = logging.getLogger("aiolastfm.http")
 
 
 class HTTPClient:
+    """
+    Client used to make HTTP requests to the Last.fm API.
+
+    Parameters
+    -----------
+    client_key
+        The API key to use for requests.
+    client_secret
+        The API secret to use for requests.
+    session
+        The session to use for requests.
+    """
 
     _BASE_URL: str = "https://ws.audioscrobbler.com/2.0/"
     _USER_AGENT: str = f"aiolastfm/0.0.2 (https://github.com/Axelware/aiolastfm)"

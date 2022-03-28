@@ -1,30 +1,45 @@
 .. py:currentmodule:: aiolastfm
 
-
 Welcome to aiolastfm
-====================================
+====================
+aiolastfm is asynchronous python wrapper for Last.fm API.
 
-aiolastfm is an asynchronous library for interacting with the last.fm API.
+Installation
+------------
+From PyPI
 
-**Features:**
+.. tab:: Linux
 
-- stuff 1
-- stuff 2
-- stuff  3
+    .. code:: bash
 
+        python3 -m pip install -U discord.py
 
-Support
-------------------------------------
-If you need help with anything, the following might help:
+.. tab:: Windows
 
-- Open an :resource:`issue <issues>` or start a :resource:`discussion <discussions>` on the :resource:`github <github>`.
-- Join the :resource:`discord <discord>` server.
+    .. code:: bash
 
+        py -3 -m pip install -U aiolastfm
 
-API Reference
-------------------------------------
+From GitHub:
 
+.. tab:: Linux
+
+    .. code:: bash
+
+        git clone https://github.com/Axelware/aiolastfm
+        cd aiolastfm
+        python3 -m pip install .
+
+.. tab:: Windows
+
+    .. code:: bash
+
+        git clone https://github.com/Axelware/aiolastfm
+        cd aiolastfm
+        py -3 -m pip install .
+
+Contents
+--------
 .. toctree::
-    :maxdepth: 5
-
-    reference
+    pages/api
+    pages/examples

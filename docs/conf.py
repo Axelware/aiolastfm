@@ -52,6 +52,7 @@ extensions: list[str] = [
     "sphinxcontrib_trio",
     "resource_links",
     "sphinx_copybutton",
+    "sphinx_inline_tabs"
 ]
 
 needs_sphinx: str = "4.5.0"
