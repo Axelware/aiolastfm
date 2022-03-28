@@ -85,7 +85,7 @@ build-backend   = "poetry.core.masonry.api"
 
 
 [tool.pyright]
-include                 = ["aiolastfm"]
+include                 = ["aiolastfm", "docs"]
 verboseOutput           = false
 pythonVersion           = "3.10"
 typeCheckingMode        = "strict"
