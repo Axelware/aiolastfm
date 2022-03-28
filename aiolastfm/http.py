@@ -25,7 +25,7 @@ __log__: logging.Logger = logging.getLogger("aiolastfm.http")
 class HTTPClient:
 
     _BASE_URL: str = "https://ws.audioscrobbler.com/2.0/"
-    _USER_AGENT: str = f"aiolastfm/0.0.1 (https://github.com/Axelware/aiolastfm)"
+    _USER_AGENT: str = f"aiolastfm/0.0.2 (https://github.com/Axelware/aiolastfm)"
     _HEADERS: Headers = {
         "User-Agent": _USER_AGENT,
     }
