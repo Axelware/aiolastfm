@@ -52,7 +52,6 @@ extensions: list[str] = [
     "sphinxcontrib_trio",
     "resource_links",
     "sphinx_copybutton",
-    "sphinxext.opengraph",
 ]
 
 needs_sphinx: str = "4.5.0"
@@ -80,22 +79,35 @@ html_title: str = "aiolastfm"
 # Extensions #
 ##############
 
+# autodoc
+autodoc_member_order: str = "bysource"
+autodoc_default_options: dict[str, Any] = {
+    "undoc-members": True
+}
+autodoc_typehints: str = "both"
+autodoc_typehints_description_target: str = "documented"
+autodoc_typehints_format: str = "short"
+
+# napoleon
 napoleon_include_init_with_doc: bool = True
 napoleon_include_private_with_doc: bool = True
+napoleon_use_admonition_for_examples: bool = True
+napoleon_use_admonition_for_notes: bool = True
 
-autodoc_typehints: str = "description"
-autodoc_member_order: str = "bysource"
-
-extlinks: dict[str, tuple[str, str]] = {
-    "issue": (f"{_GITHUB}/issues/%s", "GH-"),
-}
-
+# intersphinx
 intersphinx_mapping: dict[str, tuple[str, None]] = {
     'aiohttp': ('https://docs.aiohttp.org/en/stable/', None),
     'python':  ('https://docs.python.org/3.10', None),
     'discord': ('https://discordpy.readthedocs.io/en/latest', None),
 }
 
+# ext links
+extlinks: dict[str, tuple[str, str]] = {
+    "issue": (f"{_GITHUB}/issues/%s", "GH-"),
+}
+extlinks_detect_hardcoded_links: bool = True
+
+# resource links
 resource_links: dict[str, str] = {
     "github":      _GITHUB,
     "issues":      f"{_GITHUB}/issues",
