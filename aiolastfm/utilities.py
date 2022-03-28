@@ -3,6 +3,7 @@ from __future__ import annotations
 
 # Standard Library
 import json
+from collections.abc import Callable
 from typing import Any, Literal
 
 # Packages
@@ -20,8 +21,8 @@ __all__ = (
 )
 
 
-to_json = json.dumps
-from_json = json.loads
+to_json: Callable[[], str] = json.dumps
+from_json: Callable[[], Any] = json.loads
 
 
 async def json_or_text(response: aiohttp.ClientResponse) -> ResponseData | str:

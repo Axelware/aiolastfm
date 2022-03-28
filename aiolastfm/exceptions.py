@@ -38,36 +38,18 @@ class HTTPException(LastFmException):
         data: ResponseData,
     ) -> None:
 
-        self._response: aiohttp.ClientResponse = response
-        self._data: ResponseData = data
-        self._code: int = data["error"]
-        self._message: str = data["message"]
+        self.response: aiohttp.ClientResponse = response
+        self.data: ResponseData = data
 
-        message: str = f"{self._response.status} ({self._response.reason})"
-        if self._message:
-            message += f" - {self._message}"
+        self.status: int = response.status
 
-        super().__init__(message)
+        self.error_code: int = data["error"]
+        self.error_message: str = data["message"]
 
-    @property
-    def response(self) -> aiohttp.ClientResponse:
-        return self._response
+        self.message: str = f"{response.status} ({response.reason}) - {self.error_message}"
 
-    @property
-    def data(self) -> ResponseData:
-        return self._data
-
-    @property
-    def code(self) -> int:
-        return self._code
-
-    @property
-    def message(self) -> str:
-        return self._message
-
-    @property
-    def status(self) -> int:
-        return self._response.status
+    def __str__(self) -> str:
+        return self.message
 
 
 class AuthenticationFailed(HTTPException):
