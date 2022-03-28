@@ -1,9 +1,8 @@
 .. py:currentmodule:: aiolastfm
 
+
 Welcome to aiolastfm
 ====================================
-
-.. image:: /images/aiolastfm.jpg
 
 aiolastfm is an asynchronous library for interacting with the last.fm API.
 
@@ -22,10 +21,10 @@ If you need help with anything, the following might help:
 - Join the :resource:`discord <discord>` server.
 
 
-Contents:
+API Reference
 ------------------------------------
 
 .. toctree::
     :maxdepth: 5
 
-    reference/index
+    reference

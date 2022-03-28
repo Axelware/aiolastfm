@@ -7,6 +7,7 @@ from typing import Final, Literal, NamedTuple
 
 # My stuff
 from .exceptions import *
+from .client import Client as Client
 from .http import HTTPClient as HTTPClient
 
 

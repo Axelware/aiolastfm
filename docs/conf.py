@@ -48,10 +48,6 @@ needs_sphinx: str = "4.5.0"
 
 html_theme: str = "furo"
 html_theme_options: dict[str, Any] = {
-    "dark_css_variables": {
-        "color-brand-primary": "#ba0000",
-        "color-brand-content": "#ba0000",
-    },
     "footer_icons":       [
         {
             "name":  "Discord",

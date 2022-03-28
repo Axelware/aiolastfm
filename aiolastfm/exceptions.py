@@ -22,6 +22,7 @@ __all__ = (
 
 
 class LastFmException(Exception):
+    """Base exception for all aiolastfm exceptions."""
     pass
 
 
