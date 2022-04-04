@@ -27,7 +27,7 @@ project: str = "aiolastfm"
 author: str = "Axel#3456"
 copyright: str = "2022 Axelancerr"
 
-with open(os.path.abspath(os.path.join(os.path.dirname(__file__), '../aiolastfm/__init__.py'))) as file:
+with open(os.path.abspath(os.path.join(os.path.dirname(__file__), "../aiolastfm/__init__.py"))) as file:
 
     if not (match := re.search(r"^__version__: [^=]* = \"([^\"]*)\"", file.read(), re.MULTILINE)):
         raise RuntimeError
@@ -97,9 +97,9 @@ napoleon_use_admonition_for_notes: bool = True
 
 # intersphinx
 intersphinx_mapping: dict[str, tuple[str, None]] = {
-    'aiohttp': ('https://docs.aiohttp.org/en/stable/', None),
-    'python':  ('https://docs.python.org/3.10', None),
-    'discord': ('https://discordpy.readthedocs.io/en/latest', None),
+    "aiohttp": ("https://docs.aiohttp.org/en/stable/", None),
+    "python":  ("https://docs.python.org/3.10", None),
+    "discord": ("https://discordpy.readthedocs.io/en/master", None),
 }
 
 # ext links
