@@ -57,7 +57,9 @@ class HTTPClient:
     def __repr__(self) -> str:
         return "<aiolastfm.HTTPClient>"
 
-    # Private methods
+    ###########
+    # Private #
+    ###########
 
     async def _get_session(self) -> aiohttp.ClientSession:
 
@@ -118,3 +120,193 @@ class HTTPClient:
 
         assert not isinstance(data, str)
         raise HTTPException(response, data=data)
+
+    ##########
+    # Public #
+    ##########
+
+    # Albums
+
+    async def add_album_tags(self) -> None:
+        raise NotImplementedError
+
+    async def get_album_info(self) -> None:
+        raise NotImplementedError
+
+    async def get_albums_tags(self) -> None:
+        raise NotImplementedError
+
+    async def get_albums_top_tags(self) -> None:
+        raise NotImplementedError
+
+    async def remove_album_tag(self) -> None:
+        raise NotImplementedError
+
+    async def search_for_albums(self) -> None:
+        raise NotImplementedError
+
+    # Artists
+
+    async def add_artist_tags(self) -> None:
+        raise NotImplementedError
+
+    async def get_artist_correction(self) -> None:
+        raise NotImplementedError
+
+    async def get_artist_info(self) -> None:
+        raise NotImplementedError
+
+    async def get_similar_artists(self) -> None:
+        raise NotImplementedError
+
+    async def get_artists_tags(self) -> None:
+        raise NotImplementedError
+
+    async def get_artists_top_albums(self) -> None:
+        raise NotImplementedError
+
+    async def get_artists_top_tags(self) -> None:
+        raise NotImplementedError
+
+    async def remove_artist_tag(self) -> None:
+        raise NotImplementedError
+
+    async def search_for_artists(self) -> None:
+        raise NotImplementedError
+
+    # Auth
+
+    async def get_mobile_auth_session(self) -> None:
+        raise NotImplementedError
+
+    async def get_auth_session(self) -> None:
+        raise NotImplementedError
+
+    async def get_auth_token(self) -> None:
+        raise NotImplementedError
+
+    # Chart
+
+    async def get_charts_top_artists(self) -> None:
+        raise NotImplementedError
+
+    async def get_charts_top_tags(self) -> None:
+        raise NotImplementedError
+
+    async def get_charts_top_tracks(self) -> None:
+        raise NotImplementedError
+
+    # Geo
+
+    async def get_geo_top_artists(self) -> None:
+        raise NotImplementedError
+
+    async def get_geo_top_tracks(self) -> None:
+        raise NotImplementedError
+
+    # Library
+
+    async def get_library_artists(self) -> None:
+        raise NotImplementedError
+
+    # Tag
+
+    async def get_tag_info(self) -> None:
+        raise NotImplementedError
+
+    async def get_similar_tags(self) -> None:
+        raise NotImplementedError
+
+    async def get_tags_top_albums(self) -> None:
+        raise NotImplementedError
+
+    async def get_tags_top_artists(self) -> None:
+        raise NotImplementedError
+
+    async def get_tags_top_tags(self) -> None:
+        raise NotImplementedError
+
+    async def get_tags_top_tracks(self) -> None:
+        raise NotImplementedError
+
+    async def get_tags_weekly_artist_chart(self) -> None:
+        raise NotImplementedError
+
+    # Track
+
+    async def add_track_tags(self) -> None:
+        raise NotImplementedError
+
+    async def get_track_correction(self) -> None:
+        raise NotImplementedError
+
+    async def get_track_info(self) -> None:
+        raise NotImplementedError
+
+    async def get_similar_tracks(self) -> None:
+        raise NotImplementedError
+
+    async def get_tracks_tags(self) -> None:
+        raise NotImplementedError
+
+    async def get_tracks_top_tags(self) -> None:
+        raise NotImplementedError
+
+    async def love_track(self) -> None:
+        raise NotImplementedError
+
+    async def remove_track_tag(self) -> None:
+        raise NotImplementedError
+
+    async def scrobble_track(self) -> None:
+        raise NotImplementedError
+
+    async def search_for_tracks(self) -> None:
+        raise NotImplementedError
+
+    async def unlove_track(self) -> None:
+        raise NotImplementedError
+
+    async def update_currently_playing_track(self) -> None:
+        raise NotImplementedError
+
+    # User
+
+    async def get_users_friends(self) -> None:
+        raise NotImplementedError
+
+    async def get_user_info(self) -> None:
+        raise NotImplementedError
+
+    async def get_users_loved_tracks(self) -> None:
+        raise NotImplementedError
+
+    async def get_users_personal_tags(self) -> None:
+        raise NotImplementedError
+
+    async def get_users_recent_tracks(self) -> None:
+        raise NotImplementedError
+
+    async def get_users_top_albums(self) -> None:
+        raise NotImplementedError
+
+    async def get_users_top_artists(self) -> None:
+        raise NotImplementedError
+
+    async def get_users_top_tags(self) -> None:
+        raise NotImplementedError
+
+    async def get_users_top_tracks(self) -> None:
+        raise NotImplementedError
+
+    async def get_users_weekly_album_chart(self) -> None:
+        raise NotImplementedError
+
+    async def get_users_weekly_artist_chart(self) -> None:
+        raise NotImplementedError
+
+    async def get_users_weekly_chart_list(self) -> None:
+        raise NotImplementedError
+
+    async def get_users_weekly_track_chart(self) -> None:
+        raise NotImplementedError
