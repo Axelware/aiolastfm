@@ -3,6 +3,5 @@
 
 .idea/
 dist/
+tests/
 docs/_build
-
-test.py
