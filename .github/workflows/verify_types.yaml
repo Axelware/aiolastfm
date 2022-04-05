@@ -1,0 +1,51 @@
+name: Verify Types
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+
+jobs:
+
+  job:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ '3.10' ]
+
+    name: "Verify Types @ ${{ matrix.python-version }}"
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python v${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install project dependencies
+        run: |
+          pip install '.'
+
+      - name: Setup Node v17
+        uses: actions/setup-node@v3
+        with:
+          node-version: 17
+
+      - name: Install pyright
+        run: |
+          npm install -g pyright@latest
+
+      - name: "Verify Types @ ${{ matrix.python-version }}"
+        run: |
+          pyright
+          pyright --ignoreexternal --lib --verifytypes aiolastfm
