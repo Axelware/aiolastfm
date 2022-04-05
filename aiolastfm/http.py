@@ -4,14 +4,15 @@ from __future__ import annotations
 # Standard Library
 import asyncio
 import logging
+from typing import Any
 
 # Packages
 import aiohttp
 
 # Local
 from .exceptions import _EXCEPTION_MAPPING, HTTPException, InvalidResponse
-from .types.common import Parameters, ResponseData
-from .types.http import APIMethod, Headers, HTTPMethod
+from .types.http import APIMethod, HTTPMethod
+from .types.payloads import AlbumPayload, UserPayload
 from .utilities import MISSING, json_or_text
 
 
@@ -38,7 +39,7 @@ class HTTPClient:
 
     _BASE_URL: str = "https://ws.audioscrobbler.com/2.0/"
     _USER_AGENT: str = f"aiolastfm/0.0.2 (https://github.com/Axelware/aiolastfm)"
-    _HEADERS: Headers = {
+    _HEADERS: dict[str, str] = {
         "User-Agent": _USER_AGENT,
     }
 
@@ -73,20 +74,20 @@ class HTTPClient:
         _method: HTTPMethod, /,
         *,
         method: APIMethod,
-        **parameters: str
-    ) -> ResponseData:
+        **parameters: Any
+    ) -> Any:
 
         session = await self._get_session()
 
-        params: Parameters = {
+        params: dict[str, Any] = {
             "format":  "json",
             "api_key": self._client_key,
             "method":  method,
         }
-        params.update(parameters)
+        params.update({k: v for k, v in parameters.items() if v is not None})
 
         response: aiohttp.ClientResponse = MISSING
-        data: ResponseData | str = MISSING
+        data: dict[str, Any] | str = MISSING
 
         for tries in range(3):
 
@@ -130,8 +131,27 @@ class HTTPClient:
     async def add_album_tags(self) -> None:
         raise NotImplementedError
 
-    async def get_album_info(self) -> None:
-        raise NotImplementedError
+    async def get_album_info(
+        self,
+        artist: str | None = None,
+        album: str | None = None,
+        musicbrainz_id: str | None = None,
+        auto_correct: bool | None = None,
+        username: str | None = None,
+        language_code: str | None = None,
+    ) -> AlbumPayload:
+
+        data = await self._request(
+            "GET",
+            method="album.getInfo",
+            artist=artist,
+            album=album,
+            mbid=musicbrainz_id,
+            autocorrect=int(auto_correct) if auto_correct else None,  # api expects bools as 1s or 0s :(
+            username=username,
+            lang=language_code
+        )
+        return data["album"]
 
     async def get_albums_tags(self) -> None:
         raise NotImplementedError
@@ -275,8 +295,14 @@ class HTTPClient:
     async def get_users_friends(self) -> None:
         raise NotImplementedError
 
-    async def get_user_info(self) -> None:
-        raise NotImplementedError
+    async def get_user_info(self, user: str) -> UserPayload:
+
+        # This method could have 'user' be optional as the
+        # api defaults to the authenticated user but as of
+        # implementation this library does not support user
+        # authentication.
+        data = await self._request("GET", method="user.getInfo", user=user)
+        return data["user"]
 
     async def get_users_loved_tracks(self) -> None:
         raise NotImplementedError

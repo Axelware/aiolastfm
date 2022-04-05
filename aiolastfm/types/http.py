@@ -5,8 +5,6 @@ from __future__ import annotations
 from typing import Literal
 
 
-Headers = dict[str, str]
-
 HTTPMethod = Literal[
     "GET",
     "POST"

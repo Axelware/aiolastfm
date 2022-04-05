@@ -9,9 +9,6 @@ from typing import Any, Literal
 # Packages
 import aiohttp
 
-# Local
-from .types.common import ResponseData
-
 
 __all__ = (
     "to_json",
@@ -25,7 +22,7 @@ to_json: Callable[..., str] = json.dumps
 from_json: Callable[..., Any] = json.loads
 
 
-async def json_or_text(response: aiohttp.ClientResponse) -> ResponseData | str:
+async def json_or_text(response: aiohttp.ClientResponse) -> dict[str, Any] | str:
 
     text = await response.text(encoding="utf-8")
 

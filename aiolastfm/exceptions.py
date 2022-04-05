@@ -1,11 +1,11 @@
 # Future
 from __future__ import annotations
 
+# Standard Library
+from typing import Any
+
 # Packages
 import aiohttp
-
-# Local
-from .types.common import ResponseData
 
 
 __all__ = (
@@ -35,11 +35,11 @@ class HTTPException(LastFmException):
     def __init__(
         self,
         response: aiohttp.ClientResponse,
-        data: ResponseData,
+        data: dict[str, Any],
     ) -> None:
 
         self.response: aiohttp.ClientResponse = response
-        self.data: ResponseData = data
+        self.data: dict[str, Any] = data
 
         self.status: int = response.status
 
