@@ -27,7 +27,7 @@ async def json_or_text(response: aiohttp.ClientResponse) -> dict[str, Any] | str
     text = await response.text(encoding="utf-8")
 
     try:
-        if response.headers["content-type"] in ["application/json", "application/json; charset=utf-8"]:
+        if response.headers.get("Content-Type", "").lower() in ["application/json", "application/json; charset=utf-8"]:
             return from_json(text)
     except KeyError:
         pass
