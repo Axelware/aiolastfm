@@ -5,7 +5,7 @@ build-backend   = "poetry.core.masonry.api"
 
 [tool.poetry]
 name            = "aiolastfm"
-version         = "0.0.2"
+version         = "0.0.3"
 description     = "An async wrapper for the last.fm API."
 authors         = ["Axel <axelancerr@gmail.com>"]
 license         = "MIT"
