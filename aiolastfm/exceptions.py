@@ -80,7 +80,7 @@ class RateLimitExceeded(HTTPException):
     pass
 
 
-_EXCEPTION_MAPPING: dict[int, type[HTTPException]] = {
+EXCEPTION_MAPPING: dict[int, type[HTTPException]] = {
     4:  AuthenticationFailed,
     6:  InvalidParameters,
     10: InvalidAPIKey,

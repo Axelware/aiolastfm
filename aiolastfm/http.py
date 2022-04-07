@@ -10,7 +10,7 @@ from typing import Any
 import aiohttp
 
 # Local
-from .exceptions import _EXCEPTION_MAPPING, HTTPException, InvalidResponse
+from .exceptions import EXCEPTION_MAPPING, HTTPException, InvalidResponse
 from .types.http import APIMethod, HTTPMethod
 from .types.payloads import AlbumPayload, UserPayload
 from .utilities import MISSING, json_or_text
@@ -84,7 +84,7 @@ class HTTPClient:
             "api_key": self._client_key,
             "method":  method,
         }
-        params.update({k: v for k, v in parameters.items() if v is not None})
+        params |= {k: v for k, v in parameters.items() if v is not None}
 
         response: aiohttp.ClientResponse = MISSING
         data: dict[str, Any] | str = MISSING
@@ -105,7 +105,7 @@ class HTTPClient:
                         raise InvalidResponse
 
                     if code := data.get("error"):
-                        raise _EXCEPTION_MAPPING[code](response, data)
+                        raise EXCEPTION_MAPPING[code](response, data)
 
                     if 200 <= response.status < 300:
                         return data
