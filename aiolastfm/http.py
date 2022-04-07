@@ -4,7 +4,7 @@ from __future__ import annotations
 # Standard Library
 import asyncio
 import logging
-from typing import Any
+from typing import Any, Literal
 
 # Packages
 import aiohttp
@@ -12,7 +12,7 @@ import aiohttp
 # Local
 from .exceptions import EXCEPTION_MAPPING, HTTPException, InvalidResponse
 from .types.http import APIMethod, HTTPMethod
-from .types.payloads import AlbumPayload, UserPayload
+from .types.payloads import AlbumPayload, TrackPayload, UserPayload
 from .utilities import MISSING, json_or_text
 
 
@@ -126,6 +126,10 @@ class HTTPClient:
     # Public #
     ##########
 
+    async def close(self) -> None:
+        if self._session is not None:
+            await self._session.close()
+
     # Albums
 
     async def add_album_tags(self) -> None:
@@ -133,21 +137,22 @@ class HTTPClient:
 
     async def get_album_info(
         self,
+        *,
+        name: str | None = None,
         artist: str | None = None,
-        album: str | None = None,
         musicbrainz_id: str | None = None,
         auto_correct: bool | None = None,
         username: str | None = None,
         language_code: str | None = None,
     ) -> AlbumPayload:
 
-        data = await self._request(
+        data: dict[Literal["album"], AlbumPayload] = await self._request(
             "GET",
             method="album.getInfo",
+            album=name,
             artist=artist,
-            album=album,
             mbid=musicbrainz_id,
-            autocorrect=int(auto_correct) if auto_correct else None,  # api expects bools as 1s or 0s :(
+            autocorrect=int(auto_correct) if auto_correct else None,
             username=username,
             lang=language_code
         )
@@ -260,8 +265,25 @@ class HTTPClient:
     async def get_track_correction(self) -> None:
         raise NotImplementedError
 
-    async def get_track_info(self) -> None:
-        raise NotImplementedError
+    async def get_track_info(
+        self,
+        name: str | None = None,
+        artist: str | None = None,
+        musicbrainz_id: str | None = None,
+        auto_correct: bool | None = None,
+        username: str | None = None,
+    ) -> TrackPayload:
+
+        data: dict[Literal["track"], TrackPayload] = await self._request(
+            "GET",
+            method="track.getInfo",
+            track=name,
+            artist=artist,
+            mbid=musicbrainz_id,
+            autocorrect=int(auto_correct) if auto_correct else None,
+            username=username,
+        )
+        return data["track"]
 
     async def get_similar_tracks(self) -> None:
         raise NotImplementedError
@@ -295,7 +317,10 @@ class HTTPClient:
     async def get_users_friends(self) -> None:
         raise NotImplementedError
 
-    async def get_user_info(self, user: str) -> UserPayload:
+    async def get_user_info(
+        self,
+        user: str, /
+    ) -> UserPayload:
 
         # This method could have 'user' be optional as the
         # api defaults to the authenticated user but as of

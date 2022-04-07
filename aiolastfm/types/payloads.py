@@ -4,6 +4,9 @@ from __future__ import annotations
 # Standard Library
 from typing import Literal, Optional, TypedDict
 
+# Packages
+from typing_extensions import NotRequired
+
 
 ##########
 # Common #
@@ -25,42 +28,8 @@ TagData = TypedDict(
     }
 )
 
-#########
-# Album #
-#########
-
-AlbumTrackStreamableData = TypedDict(
-    "AlbumTrackStreamableData",
-    {
-        "fulltrack": str,
-        "#text":     str
-    }
-)
-
-AlbumTrackArtistData = TypedDict(
-    "AlbumTrackArtistData",
-    {
-        "url":  str,
-        "name": str,
-        "mbid": str
-    }
-)
-
-AlbumTrackPayload = TypedDict(
-    "AlbumTrackPayload",
-    {
-        "streamable": AlbumTrackStreamableData,
-        "duration":   Optional[int],
-        "url":        str,
-        "name":       str,
-        "@attr":      dict[Literal["rank"], int],
-        "artist":     AlbumTrackArtistData
-
-    }
-)
-
-AlbumWikiData = TypedDict(
-    "AlbumWikiData",
+WikiData = TypedDict(
+    "WikiData",
     {
         "published": str,
         "summary":   str,
@@ -68,19 +37,89 @@ AlbumWikiData = TypedDict(
     }
 )
 
+TrackStreamableData = TypedDict(
+    "TrackStreamableData",
+    {
+        "fulltrack": str,
+        "#text":     str
+    }
+)
+
+TrackArtistData = TypedDict(
+    "TrackArtistData",
+    {
+        "url":  str,
+        "name": str,
+        "mbid": str
+    }
+)
+
+#########
+# Album #
+#########
+
+AlbumTrackPayload = TypedDict(
+    "AlbumTrackPayload",
+    {
+        "streamable": TrackStreamableData,
+        "duration":   Optional[int],
+        "url":        str,
+        "name":       str,
+        "@attr":      dict[Literal["rank"], int],
+        "artist":     TrackArtistData
+    }
+)
+
 AlbumPayload = TypedDict(
     "AlbumPayload",
     {
-        "artist":    str,
-        "mbid":      str,
-        "tags":      dict[Literal["tag"], list[TagData]],
-        "playcount": str,
-        "image":     list[ImageData],
-        "tracks":    dict[Literal["track"], list[AlbumTrackPayload]],
-        "url":       str,
-        "name":      str,
-        "listeners": str,
-        "wiki":      AlbumWikiData
+        "artist":        str,
+        "mbid":          str,
+        "tags":          dict[Literal["tag"], list[TagData]],
+        "playcount":     str,
+        "image":         list[ImageData],
+        "tracks":        dict[Literal["track"], list[AlbumTrackPayload]],
+        "url":           str,
+        "name":          str,
+        "listeners":     str,
+        "wiki":          WikiData,
+        "userplaycount": NotRequired[int],
+        # Same warnings on TrackPayload apply here.
+    }
+)
+
+#########
+# TRACK #
+#########
+
+TrackAlbumData = TypedDict(
+    "TrackAlbumData",
+    {
+        "artist": str,
+        "title":  str,
+        "url":    str,
+        "image":  list[ImageData]
+    }
+)
+
+TrackPayload = TypedDict(
+    "TrackPayload",
+    {
+        "name":          str,
+        "url":           str,
+        "duration":      str,
+        "streamable":    TrackStreamableData,
+        "listeners":     str,
+        "playcount":     str,
+        "artist":        TrackArtistData,
+        "album":         TrackAlbumData,
+        "toptags":       dict[Literal["tag"], TagData],
+        "wiki":          WikiData,
+        "userplaycount": NotRequired[str],
+        "userloved":     NotRequired[str]
+        # This payload can apparently contain "corrected" artist
+        # and name fields however I couldn't get these to be
+        # returned in my testing.
     }
 )
 
@@ -104,6 +143,7 @@ UserPayload = TypedDict(
         "playcount":  str,
         "subscriber": str,
         "realname":   str,
+        "playlists":  str,
         "bootstrap":  str,
         "image":      list[ImageData],
         "registered": UserRegisteredData,
