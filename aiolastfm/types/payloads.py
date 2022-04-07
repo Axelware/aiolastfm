@@ -88,6 +88,63 @@ AlbumInfoPayload = TypedDict(
     }
 )
 
+##########
+# ARTIST #
+##########
+
+ArtistStatsData = TypedDict(
+    "ArtistStatsData",
+    {
+        "listeners":     str,
+        "playcount":     str,
+        "userplaycount": NotRequired[str]
+    }
+)
+
+SimilarArtistData = TypedDict(
+    "SimilarArtistData",
+    {
+        "name":  str,
+        "url":   str,
+        "image": list[ImageData]
+    }
+)
+
+ArtistBioLinkData = TypedDict(
+    "ArtistBioLinkData",
+    {
+        "#text": str,
+        "rel":   str,
+        "href":  str,
+    }
+)
+
+ArtistBioData = TypedDict(
+    "ArtistBioData",
+    {
+        "links":     dict[Literal["link"], ArtistBioLinkData],
+        "published": str,
+        "summary":   str,
+        "content":   str,
+    }
+)
+
+ArtistInfoPayload = TypedDict(
+    "ArtistInfoPayload",
+    {
+        "name":       str,
+        "mbid":       str,
+        "url":        str,
+        "image":      list[ImageData],
+        "streamable": str,
+        "ontour":     str,
+        "stats":      ArtistStatsData,
+        "similar":    dict[Literal["artist"], list[SimilarArtistData]],
+        "tags":       dict[Literal["tag"], list[TagData]],
+        "bio":        ArtistBioData,
+    }
+)
+
 #######
 # TAG #
 #######

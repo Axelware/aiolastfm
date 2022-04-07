@@ -12,7 +12,7 @@ import aiohttp
 # Local
 from .exceptions import EXCEPTION_MAPPING, HTTPException, InvalidResponse
 from .types.http import APIMethod, HTTPMethod
-from .types.payloads import AlbumInfoPayload, TagInfoPayload, TrackInfoPayload, UserInfoPayload
+from .types.payloads import AlbumInfoPayload, ArtistInfoPayload, TagInfoPayload, TrackInfoPayload, UserInfoPayload
 from .utilities import MISSING, json_or_text
 
 
@@ -178,8 +178,26 @@ class HTTPClient:
     async def get_artist_correction(self) -> None:
         raise NotImplementedError
 
-    async def get_artist_info(self) -> None:
-        raise NotImplementedError
+    async def get_artist_info(
+        self,
+        *,
+        name: str | None = None,
+        musicbrainz_id: str | None = None,
+        auto_correct: bool | None = None,
+        username: str | None = None,
+        language_code: str | None = None,
+    ) -> ArtistInfoPayload:
+
+        data: dict[Literal["artist"], ArtistInfoPayload] = await self._request(
+            "GET",
+            method="artist.getInfo",
+            artist=name,
+            mbid=musicbrainz_id,
+            autocorrect=int(auto_correct) if auto_correct else None,
+            username=username,
+            lang=language_code
+        )
+        return data["artist"]
 
     async def get_similar_artists(self) -> None:
         raise NotImplementedError
