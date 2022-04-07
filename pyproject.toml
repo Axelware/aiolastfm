@@ -1,3 +1,8 @@
+[build-system]
+requires        = ["poetry_core>=1.0.0"]
+build-backend   = "poetry.core.masonry.api"
+
+
 [tool.poetry]
 name            = "aiolastfm"
 version         = "0.0.2"
@@ -42,16 +47,15 @@ sphinxcontrib-trio  = { version = "*",      optional = true }
 sphinx-copybutton   = { version = "*",      optional = true }
 sphinx-inline-tabs  = { version = "*",      optional = true }
 furo                = { version = "*",      optional = true }
-sphinx-autobuild    = { version = "*",      optional = true }
 
 
 [tool.poetry.dev-dependencies]
-isort       = "*"
+isort             = "*"
+typing_extensions = "*"
 
 
 [tool.poetry.extras]
-docs        = ["sphinx", "sphinxcontrib-trio", "sphinx-copybutton", "sphinx-inline-tabs", "furo"]
-docs-dev    = ["sphinx", "sphinxcontrib-trio", "sphinx-copybutton", "sphinx-inline-tabs", "furo", "sphinx-autobuild"]
+docs = ["sphinx", "sphinxcontrib-trio", "sphinx-copybutton", "sphinx-inline-tabs", "furo"]
 
 
 [tool.poetry.urls]
@@ -75,15 +79,12 @@ import_heading_firstparty   = "Local"
 import_heading_localfolder  = "Local"
 
 
-[build-system]
-requires        = ["poetry_core>=1.0.0"]
-build-backend   = "poetry.core.masonry.api"
-
-
 [tool.pyright]
-include                     = ["aiolastfm"]
-verboseOutput               = false
+include = [
+    "aiolastfm",
+    "aiolastfm/types",
+    # "tests",
+]
 pythonVersion               = "3.10"
 typeCheckingMode            = "strict"
-useLibraryCodeForTypes      = true
 reportUnknownMemberType     = false
