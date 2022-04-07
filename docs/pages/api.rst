@@ -10,12 +10,12 @@ placeholder text
 
 Client
 ^^^^^^
-.. autoclass:: Client
+.. autoclass:: aiolastfm.Client
     :members:
 
 HTTPClient
 ^^^^^^^^^^
-.. autoclass:: HTTPClient
+.. autoclass:: aiolastfm.HTTPClient
     :members:
 
 
