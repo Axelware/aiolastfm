@@ -70,8 +70,8 @@ AlbumTrackPayload = TypedDict(
     }
 )
 
-AlbumPayload = TypedDict(
-    "AlbumPayload",
+AlbumInfoPayload = TypedDict(
+    "AlbumInfoPayload",
     {
         "artist":        str,
         "mbid":          str,
@@ -85,6 +85,28 @@ AlbumPayload = TypedDict(
         "wiki":          WikiData,
         "userplaycount": NotRequired[int],
         # Same warnings on TrackPayload apply here.
+    }
+)
+
+#######
+# TAG #
+#######
+
+TagWikiData = TypedDict(
+    "TagWikiData",
+    {
+        "summary": str,
+        "content": str
+    }
+)
+
+TagInfoPayload = TypedDict(
+    "TagInfoPayload",
+    {
+        "name":  str,
+        "total": int,
+        "reach": int,
+        "wiki":  TagWikiData
     }
 )
 
@@ -102,8 +124,8 @@ TrackAlbumData = TypedDict(
     }
 )
 
-TrackPayload = TypedDict(
-    "TrackPayload",
+TrackInfoPayload = TypedDict(
+    "TrackInfoPayload",
     {
         "name":          str,
         "url":           str,
@@ -135,8 +157,8 @@ UserRegisteredData = TypedDict(
     }
 )
 
-UserPayload = TypedDict(
-    "UserPayload",
+UserInfoPayload = TypedDict(
+    "UserInfoPayload",
     {
         "country":    str,
         "age":        str,

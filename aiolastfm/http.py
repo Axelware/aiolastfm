@@ -12,7 +12,7 @@ import aiohttp
 # Local
 from .exceptions import EXCEPTION_MAPPING, HTTPException, InvalidResponse
 from .types.http import APIMethod, HTTPMethod
-from .types.payloads import AlbumPayload, TrackPayload, UserPayload
+from .types.payloads import AlbumInfoPayload, TagInfoPayload, TrackInfoPayload, UserInfoPayload
 from .utilities import MISSING, json_or_text
 
 
@@ -144,9 +144,9 @@ class HTTPClient:
         auto_correct: bool | None = None,
         username: str | None = None,
         language_code: str | None = None,
-    ) -> AlbumPayload:
+    ) -> AlbumInfoPayload:
 
-        data: dict[Literal["album"], AlbumPayload] = await self._request(
+        data: dict[Literal["album"], AlbumInfoPayload] = await self._request(
             "GET",
             method="album.getInfo",
             album=name,
@@ -236,8 +236,20 @@ class HTTPClient:
 
     # Tag
 
-    async def get_tag_info(self) -> None:
-        raise NotImplementedError
+    async def get_tag_info(
+        self,
+        tag: str, /,
+        *,
+        language_code: str | None = None
+    ) -> TagInfoPayload:
+
+        data: dict[Literal["tag"], TagInfoPayload] = await self._request(
+            "GET",
+            method="tag.getInfo",
+            tag=tag,
+            lang=language_code
+        )
+        return data["tag"]
 
     async def get_similar_tags(self) -> None:
         raise NotImplementedError
@@ -267,14 +279,15 @@ class HTTPClient:
 
     async def get_track_info(
         self,
+        *,
         name: str | None = None,
         artist: str | None = None,
         musicbrainz_id: str | None = None,
         auto_correct: bool | None = None,
         username: str | None = None,
-    ) -> TrackPayload:
+    ) -> TrackInfoPayload:
 
-        data: dict[Literal["track"], TrackPayload] = await self._request(
+        data: dict[Literal["track"], TrackInfoPayload] = await self._request(
             "GET",
             method="track.getInfo",
             track=name,
@@ -320,13 +333,17 @@ class HTTPClient:
     async def get_user_info(
         self,
         user: str, /
-    ) -> UserPayload:
+    ) -> UserInfoPayload:
 
         # This method could have 'user' be optional as the
         # api defaults to the authenticated user but as of
         # implementation this library does not support user
         # authentication.
-        data = await self._request("GET", method="user.getInfo", user=user)
+        data: dict[Literal["user"], UserInfoPayload] = await self._request(
+            "GET",
+            method="user.getInfo",
+            user=user
+        )
         return data["user"]
 
     async def get_users_loved_tracks(self) -> None:
